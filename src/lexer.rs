@@ -1,13 +1,13 @@
 use crate::token::Token;
 
-struct Lexer {
+pub struct Lexer {
     input: Vec<u8>,
     position: usize,
     read_position: usize,
     ch: u8,
 }
 impl Lexer {
-    fn new(input: String) -> Lexer {
+    pub fn new(input: String) -> Lexer {
         let mut lexer = Lexer {
             input: input.into_bytes(),
             position: 0,
@@ -60,7 +60,7 @@ impl Lexer {
         self.read_position += 1;
     }
 
-    fn next_token(&mut self) -> Token {
+    pub fn next_token(&mut self) -> Token {
         self.skip_whitespace();
 
         let token = match self.ch {
@@ -72,7 +72,7 @@ impl Lexer {
                 } else {
                     Token::Bang
                 }
-            },
+            }
             b'=' => {
                 if self.peek_char() == b'=' {
                     self.read_char();
@@ -80,7 +80,7 @@ impl Lexer {
                 } else {
                     Token::Assign
                 }
-            },
+            }
             b'+' => Token::Plus,
             b'-' => Token::Minus,
             b',' => Token::Comma,
